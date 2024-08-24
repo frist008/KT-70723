@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.jetbrains.kotlin.allopen)
 }
 
 kotlin {
@@ -24,6 +25,14 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+}
+
+tasks.withType(Test::class) {
+    allOpen {
+        annotation("androidx.annotation.OpenForTesting")
+    }
+
+    testLogging { setExceptionFormat("full") }
 }
 
 dependencies {
